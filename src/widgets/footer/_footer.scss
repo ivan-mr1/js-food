@@ -1,8 +1,7 @@
 @use '@helpers' as *;
 
 .footer {
-  @include adaptive-clamp('padding-top', 70, 25);
-  @include adaptive-clamp('padding-bottom', 70, 25);
+  @include adaptive-clamp('padding-block', 70, 25);
 
   &__header {
     text-align: center;
@@ -30,7 +29,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    gap: rem(25);
+    gap: rem(20);
 
     @media (max-width: em(479)) {
       flex-direction: column;
@@ -40,16 +39,16 @@
   &__item {
     display: flex;
     align-items: center;
-    gap: rem(13);
+    gap: rem(8);
 
     &:not(:last-child) {
-      margin-bottom: rem(20);
+      margin-bottom: rem(5);
     }
   }
 
   &__link {
     display: inline-flex;
     align-items: center;
-    height: 44px;
+    height: 40px;
   }
 }

@@ -4,8 +4,11 @@
 @use 'utils';
 @use 'globals';
 @use 'helpers-classes';
+@use 'hover/hover-link';
 @use '@/shared/ui/form/button';
 @use '@/shared/ui/scrollUpButton/scroll-up-button';
+@use '@/shared/ui/scrollDownButton/scrollDownButton';
+@use '@/shared/ui/soc1al/social';
 @use 'blocks/page';
 @use 'blocks/common';
 @use '@/widgets/header/header';
