@@ -8,7 +8,7 @@
   transition: var(--transition);
 
   &:active {
-    scale: 1.05;
+    scale: 0.96;
   }
 
   @include hover {
