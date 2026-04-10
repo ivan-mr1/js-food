@@ -31,9 +31,9 @@
 
   --color-white: #ffffff;
   --color-dark: #000000;
-  --color-light: #fafaf5;
+  --color-gray: rgba(0, 0, 0, 0.7);
   --color-orange: #ffa501;
 
-  --border: 1px solid var(--color-white);
+  --border: 1px solid var(--color-dark);
   --border-radius: #{rem(8)};
 }

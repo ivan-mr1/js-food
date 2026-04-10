@@ -18,7 +18,7 @@
     align-items: center;
 
     @include adaptive-clamp('column-gap', 40, 20);
-    @include adaptive-clamp('min-height', 100, 65);
+    @include adaptive-clamp('min-height', 80, 65);
   }
 
   &__overlay {
