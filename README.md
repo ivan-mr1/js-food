@@ -1,6 +1,6 @@
 # food landing
 
-- Deploy: [link]()
+- Deploy: [link](https://ivan-mr1.github.io/js-food/)
 
 - Technologies: HTML, SCSS, Javascript, Vite, Eslint, Stylelint, Prettier, Husky
 
