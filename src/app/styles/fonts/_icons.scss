@@ -1,0 +1,20 @@
+%ic {
+  font-family: 'icons', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class*='_icon-'] {
+  &::before {
+    @extend %ic;
+  }
+}
+
+._icon-arrow-left::before {
+  content: '\e900';
+}
