@@ -2,6 +2,7 @@
 
 .food {
   padding: 40px 0 50px;
+  background-color: rgba(249, 254, 126, 0.25);
 
   &__title {
     text-align: center;
@@ -16,7 +17,6 @@
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
     padding-block: fluid(50, 20);
-    background: rgba(249, 254, 126, 0.25);
   }
 
   &__item {

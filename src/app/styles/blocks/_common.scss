@@ -1,8 +1,7 @@
 @use '@helpers' as *;
 
 .title {
-  font-size: 36px;
-  font-weight: 400;
+  font-size: fluid(36, 22);
 }
 
 .divider {
