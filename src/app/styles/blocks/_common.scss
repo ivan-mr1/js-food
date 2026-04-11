@@ -1,64 +1,13 @@
 @use '@helpers' as *;
 
-.header-block {
-  font-weight: 700;
-
-  &__center {
-    text-align: center;
-
-    .header-block__line {
-      margin: 0 auto;
-    }
-
-    .header-block__subtitle {
-      &::before {
-        top: rem(-9);
-        left: 50%;
-        transform: translateX(-50%);
-      }
-    }
-  }
-
-  &__subtitle {
-    position: relative;
-    font-size: rem(16);
-
-    @include orange-before;
-
-    &:not(:last-child) {
-      margin-bottom: rem(10);
-    }
-  }
-
-  &__title {
-    line-height: 1.6;
-
-    @include adaptive-clamp('font-size', 36, 24);
-
-    &:not(:last-child) {
-      @include adaptive-clamp('margin-bottom', 25, 12);
-    }
-  }
-
-  &__title-zero {
-    &:not(:last-child) {
-      margin-bottom: rem(0);
-    }
-  }
-
-  &__line {
-    width: rem(60);
-    height: rem(3);
-    background-color: var(--second-color);
-  }
+.title {
+  font-size: 36px;
+  font-weight: 400;
 }
 
-.resume,
-.skills,
-.portfolio {
-  &__header {
-    &:not(:last-child) {
-      @include adaptive-clamp('margin-bottom', 60, 20);
-    }
-  }
+.divider {
+  width: 330px;
+  height: 1px;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.5);
 }
