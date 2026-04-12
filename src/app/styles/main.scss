@@ -6,6 +6,7 @@
 @use 'helpers-classes';
 @use 'hover/hover-link';
 @use '@/shared/ui/form/button';
+@use '@/shared/ui/form/field/field';
 @use '@/shared/ui/scrollUpButton/scroll-up-button';
 @use '@/shared/ui/scrollDownButton/scrollDownButton';
 @use '@/shared/ui/soc1al/social';
@@ -15,5 +16,6 @@
 @use '@/widgets/footer/footer';
 @use '@/sections/hero/hero';
 @use '@/sections/food/food';
+@use '@/sections/order/order';
 
 // * { outline: 1px solid red !important; } //для адаптива

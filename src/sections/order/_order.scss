@@ -1,44 +1,32 @@
 @use '@helpers' as *;
 
 .order {
-  padding-bottom: 80px;
-
-  // &__container {
-  // }
+  padding-block: fluid(80, 20);
 
   &__title {
     text-align: center;
+
+    &:not(:last-child) {
+      margin-bottom: fluid(70, 20);
+    }
   }
 
   &__form {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    margin-top: 70px;
-    padding: 0 100px;
+    gap: 30px 16px;
+
+    @media (max-width: em(767.98)) {
+      flex-direction: column;
+    }
 
     img {
       transform: scale(1.5);
     }
   }
 
-  &__input {
-    width: 280px;
-    height: 50px;
-    padding: 0 20px;
-    font-size: 18px;
-    text-align: center;
-    background: #ffffff;
-    border: none;
-    outline: 0;
+  &__field {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
-
-  // &__button {
-  // }
 }
-
-// .title {
-// }
-// .button {
-// }

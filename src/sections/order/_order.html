@@ -2,22 +2,36 @@
   <div class="order__container">
     <h2 class="title order__title">Заказывай пробный день прямо сейчас!</h2>
     <form action="#" class="order__form">
-      <input
-        required
-        placeholder="Ваше имя"
-        name="name"
-        type="text"
-        class="order__input"
+      <div class="field order__field">
+        <label class="field__label" for="name">Ваше имя</label>
+        <input
+          class="field__input"
+          id="name"
+          placeholder=" "
+          autocomplete="off"
+          required
+        />
+      </div>
+      <div class="field order__field">
+        <label class="field__label" for="phone">Ваш номер телефона</label>
+        <input
+          class="field__input"
+          id="phone"
+          placeholder=" "
+          autocomplete="off"
+          required
+        />
+      </div>
+      <img
+        src="shared/assets/img/icons/right.svg"
+        alt="right"
+        width="57"
+        height="8"
+        loading="lazy"
       />
-      <input
-        required
-        placeholder="Ваш номер телефона"
-        name="phone"
-        type="phone"
-        class="order__input"
-      />
-      <img src="shared/assets/icons/right.svg" alt="right" width="57" height="8" loading="lazy" />
-      <button class="button order__button">Перезвонить мне</button>
+      <button class="button button--orange order__button">
+        Перезвонить мне
+      </button>
     </form>
   </div>
 </section>
