@@ -5,7 +5,8 @@
 }
 
 .divider {
-  width: 330px;
+  width: 100%;
+  max-width: 330px;
   height: 1px;
   margin: 0 auto;
   background-color: rgba(0, 0, 0, 0.5);
