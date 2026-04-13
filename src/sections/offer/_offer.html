@@ -1,8 +1,10 @@
-<section class="offer">
+<section class="offer" aria-labelledby="offer-title">
   <div class="offer__container">
-    <div class="offer__row">
+    <div class="offer__line offer__line--1">
       <div class="offer__text">
-        <h2 class="title offer__title">Что мы можем вам предложить?</h2>
+        <h2 id="offer-title" class="title offer__title">
+          Что мы можем вам предложить?
+        </h2>
         <div class="offer__descr">
           Наша основная идея - это правильное питание. Оно может быть простым и
           вкусным. Мы не просто доставка, мы сервис! Мы взяли на себя все
@@ -11,27 +13,29 @@
           которую мы привозим прямо под дверь.
         </div>
       </div>
-      <div class="offer__action">
-        <button class="button button--orange">Связаться с нами</button>
+      <div class="offer__actions">
+        <button class="button button--orange offer__button">
+          Связаться с нами
+        </button>
       </div>
     </div>
-    <div class="offer__row">
+    <div class="offer__line offer__line--2">
       <div class="offer__advantages">
-        <h3>Быстро и полезно</h3>
+        <h3 class="offer__advantages-title">Быстро и полезно</h3>
         <div class="offer__advantages-text">
           Готовка дома занимает много сил, времени и нервов. Мы привозим еду
           сразу на целый день, и ты можешь действовать так, как тебе удобно, не
           подстраиваясь ни под кого и будучи уверенным в качестве продукта!
         </div>
-        <h3>Правильный рацион</h3>
+        <h3 class="offer__advantages-title">Правильный рацион</h3>
         <div class="offer__advantages-text">
           Мы разработали специальное меню, где учтены все нюансы правильного
           питания, от баланса БЖУ до их приготовления и дробления рациона.
         </div>
       </div>
-      <div class="offer__slider">
-        <div class="offer__slider-counter">
-          <div class="offer__slider-prev">
+      <div class="offer__slider slider">
+        <div class="slider__counter">
+          <button class="slider__prev">
             <img
               src="shared/assets/img/icons/left.svg"
               alt="prev"
@@ -39,11 +43,13 @@
               height="5"
               loading="lazy"
             />
-          </div>
-          <span id="current">03</span>
+          </button>
+
+          <span class="slider__current" id="current">03</span>
           /
-          <span id="total">04</span>
-          <div class="offer__slider-next">
+          <span class="slider__total" id="total">04</span>
+
+          <button class="slider__next">
             <img
               src="shared/assets/img/icons/right.svg"
               alt="next"
@@ -51,10 +57,10 @@
               height="5"
               loading="lazy"
             />
-          </div>
+          </button>
         </div>
-        <div class="offer__slider-wrapper">
-          <div class="offer__slide">
+        <div class="slider__wrapper">
+          <div class="slider__slide">
             <img
               src="shared/assets/img/slider/pepper.jpg"
               alt="pepper"
@@ -63,15 +69,35 @@
               loading="lazy"
             />
           </div>
-          <!-- <div class="offer__slide">
-                        <img src="img/slider/food-12.jpg" alt="food">
-                    </div>
-                    <div class="offer__slide">
-                        <img src="img/slider/olive-oil.jpg" alt="oil">
-                    </div>
-                    <div class="offer__slide">
-                        <img src="img/slider/paprika.jpg" alt="paprika">
-                    </div> -->
+
+          <!-- 
+          <div class="slider__slide">
+            <img
+              src="shared/assets/img/slider/food-12.jpg"
+              alt="food"
+              width="650"
+              height="390"
+              loading="lazy"
+            />
+          </div>
+          <div class="slider__slide">
+            <img
+              src="shared/assets/img/slider/olive-oil.jpg"
+              alt="oil"
+              width="650"
+              height="390"
+              loading="lazy"
+            />
+          </div>
+          <div class="slider__slide">
+            <img
+              src="shared/assets/img/slider/paprika.jpg"
+              alt="paprika"
+              width="650"
+              height="390"
+              loading="lazy"
+            />
+          </div> -->
         </div>
       </div>
     </div>
