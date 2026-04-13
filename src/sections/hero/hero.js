@@ -4,32 +4,38 @@ const heroTabs = () => {
   const tabsParent = document.querySelector('.tabheader__items');
 
   const hideTabContent = () => {
-    tabsContent.forEach((item) => item.classList.add('is-none'));
-    tabsContent.forEach((item) => item.classList.remove('fade'));
+    tabsContent.forEach((item) => {
+      item.classList.add('is-none');
+      item.classList.remove('fade');
+    });
 
-    tabs.forEach((item) => item.classList.remove('tabheader__item--active'));
+    tabs.forEach((item) => {
+      item.classList.remove('tabheader__item--active');
+    });
   };
 
   const showTabContent = (i = 0) => {
-    tabsContent[i].classList.remove('is-none');
-    tabsContent[i].classList.add('fade');
-    tabs[i].classList.add('tabheader__item--active');
+    const activeContent = tabsContent[i];
+    if (activeContent) {
+      activeContent.classList.remove('is-none');
+      activeContent.classList.add('fade');
+      tabs[i].classList.add('tabheader__item--active');
+    }
   };
 
   hideTabContent();
   showTabContent();
 
   tabsParent.addEventListener('click', (e) => {
-    const target = e.target;
+    const target = e.target.closest('.tabheader__item');
 
-    if (target && target.classList.contains('tabheader__item')) {
-      tabs.forEach((item, i) => {
-        if (target === item) {
-          hideTabContent();
-          showTabContent(i);
-        }
-      });
+    if (target) {
+      const i = Array.from(tabs).indexOf(target);
+
+      hideTabContent();
+      showTabContent(i);
     }
   });
 };
+
 export default heroTabs;
