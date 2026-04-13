@@ -25,12 +25,14 @@
 .tabs {
   display: flex;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
-}
 
-.tabcontent {
-  flex: 0 1 70%;
-  position: relative;
-  will-change: transform, opacity;
+  &__body {
+    flex: 0 1 70%;
+    position: relative;
+  }
+
+  // &__content {
+  // }
 
   &__images {
     aspect-ratio: 4/3;
@@ -42,15 +44,15 @@
     bottom: -8%;
     max-width: 450px;
     padding: fluid(25, 15);
-    font-size: 22px;
+    font-size: fluid(22, 16);
     font-weight: 300;
     background: rgba(251, 254, 93, 0.7);
   }
-}
 
-.tabheader {
-  flex: 0 1 30%;
-  padding: fluid(30, 15);
+  &__header {
+    flex: 0 1 30%;
+    padding: fluid(30, 15);
+  }
 
   &__title {
     font-size: 16px;
@@ -61,23 +63,25 @@
     }
   }
 
-  &__items {
+  &__buttons {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+
+    // gap: 10px;
     padding-left: fluid(25, 15);
     border-left: var(--border);
   }
 
-  &__item {
+  &__button {
+    padding: 5px 0;
     font-size: 18px;
     font-weight: 300;
     text-align: left;
-  }
 
-  &__item--active {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--color-dark);
+    &.is-active {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-dark);
+    }
   }
 }

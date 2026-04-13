@@ -1,7 +1,7 @@
 const heroTabs = () => {
-  const tabs = document.querySelectorAll('.tabheader__item');
-  const tabsContent = document.querySelectorAll('.tabcontent');
-  const tabsParent = document.querySelector('.tabheader__items');
+  const tabs = document.querySelectorAll('.tabs__button');
+  const tabsContent = document.querySelectorAll('.tabs__content');
+  const tabsParent = document.querySelector('.tabs__buttons');
 
   const hideTabContent = () => {
     tabsContent.forEach((item) => {
@@ -10,7 +10,7 @@ const heroTabs = () => {
     });
 
     tabs.forEach((item) => {
-      item.classList.remove('tabheader__item--active');
+      item.classList.remove('is-active');
     });
   };
 
@@ -19,7 +19,7 @@ const heroTabs = () => {
     if (activeContent) {
       activeContent.classList.remove('is-none');
       activeContent.classList.add('fade');
-      tabs[i].classList.add('tabheader__item--active');
+      tabs[i].classList.add('is-active');
     }
   };
 
@@ -27,7 +27,7 @@ const heroTabs = () => {
   showTabContent();
 
   tabsParent.addEventListener('click', (e) => {
-    const target = e.target.closest('.tabheader__item');
+    const target = e.target.closest('.tabs__button');
 
     if (target) {
       const i = Array.from(tabs).indexOf(target);
