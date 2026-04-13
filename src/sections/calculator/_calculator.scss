@@ -1,1 +1,108 @@
 @use '@helpers' as *;
+
+.calculating__choose--big .calculating {
+  padding-block: fluid(50, 20);
+
+  #gender::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url('@/shared/assets/img/icons/switch.svg') center center/cover
+      no-repeat;
+    transform: translateY(-50%);
+  }
+
+  &__title {
+    text-align: center;
+  }
+
+  &__wrapper {
+    width: 100%;
+    margin-top: 50px;
+    padding: 30px 0 40px;
+    background-color: rgba(146, 242, 255, 0.15);
+  }
+
+  &__subtitle {
+    margin-top: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+
+    :first-child {
+      margin-top: 0;
+    }
+  }
+
+  &__choose {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  &__choose-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 170px;
+    height: 44px;
+    padding: 0 10px;
+    font-size: 14px;
+    text-align: center;
+    background-color: var(--color-white);
+    border: none;
+    outline: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: 0.3s all;
+  }
+
+  &__choose-item--active {
+    color: var(--color-white);
+    background-color: #54ed39;
+  }
+
+  &__choose--medium {
+    justify-content: space-between;
+    width: 743px;
+    margin: 30px auto 0;
+  }
+
+  &__choose--big {
+    justify-content: space-between;
+    width: 930px;
+    margin: 30px auto 0;
+
+    .calculating__choose-item {
+      width: 200px;
+    }
+  }
+
+  &__divider {
+    width: 490px;
+    height: 1px;
+    margin: 40px auto;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  &__total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 490px;
+    margin: 0 auto;
+  }
+
+  &__result {
+    font-size: 18px;
+    font-weight: 700;
+
+    span {
+      font-size: fluid(42, 22);
+    }
+  }
+}
