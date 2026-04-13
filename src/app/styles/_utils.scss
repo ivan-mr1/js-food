@@ -20,6 +20,26 @@ p {
   display: none !important;
 }
 
+.is-block {
+  display: block !important;
+}
+
+.fade {
+  animation: fade 0.5s ease-in-out;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .is-show {
   @include show;
 }

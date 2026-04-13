@@ -30,6 +30,7 @@
 .tabcontent {
   flex: 0 1 70%;
   position: relative;
+  will-change: transform, opacity;
 
   &__images {
     aspect-ratio: 4/3;
