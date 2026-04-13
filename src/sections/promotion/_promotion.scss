@@ -3,10 +3,10 @@
 .promotion .bgc-yellow {
   position: absolute;
   z-index: -1;
-  top: -50px;
+  top: 0;
   left: 0;
   width: 50%;
-  height: 499px;
+  height: 100%;
   background: rgba(243, 255, 222, 0.35);
 
   @media (max-width: em(767.98)) {
@@ -16,18 +16,20 @@
 
 .promotion {
   position: relative;
-  padding: 70px 0 240px;
+  padding-block: fluid(50, 20);
 
   &__container {
     display: flex;
     align-items: center;
+    gap: 1rem;
 
     @media (max-width: em(767.98)) {
       flex-direction: column;
     }
   }
 
-  &__content {
+  &__content,
+  &__timer {
     flex: 0 1 50%;
 
     @media (max-width: em(767.98)) {
@@ -45,19 +47,13 @@
     font-size: 20px;
     font-weight: 300;
 
-    span {
+    .percent {
       font-size: 26px;
       font-weight: 700;
     }
   }
 
   &__timer {
-    flex: 0 1 50%;
-
-    @media (max-width: em(767.98)) {
-      flex: 0 1 100%;
-    }
-
     .title {
       text-align: right;
 
