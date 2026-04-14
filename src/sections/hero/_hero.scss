@@ -20,8 +20,8 @@
     }
   }
 
-  &__life {
-    padding-left: 25px;
+  &__title {
+    padding-left: fluid(25, 10);
     font-size: 20px;
     font-weight: 700;
   }
@@ -31,14 +31,24 @@
   display: flex;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
 
+  @media (max-width: em(991.98)) {
+    flex-direction: column-reverse;
+  }
+
   &__body {
-    flex: 0 1 70%;
+    flex: 1 1 auto;
     position: relative;
   }
 
   &__header {
-    flex: 0 1 30%;
+    width: 100%;
+    max-width: 250px;
     padding: fluid(30, 15);
+
+    @media (max-width: em(991.98)) {
+      max-width: 100%;
+      padding-inline: 5px;
+    }
   }
 
   &__images {
@@ -49,6 +59,7 @@
     position: absolute;
     right: -30%;
     bottom: -8%;
+    display: none;
     max-width: 450px;
     padding: fluid(25, 15);
     font-size: fluid(22, 16);
@@ -70,6 +81,13 @@
     flex-direction: column;
     padding-left: fluid(25, 15);
     border-left: var(--border);
+
+    @media (max-width: em(991.98)) {
+      flex-flow: row wrap;
+      gap: 10px;
+      padding-left: 0;
+      border-left: none;
+    }
   }
 
   &__button {
@@ -78,8 +96,11 @@
     font-weight: 300;
     text-align: left;
 
+    @include hover {
+      color: var(--accent-color);
+    }
+
     &.is-active {
-      font-size: 18px;
       font-weight: 700;
       color: var(--color-dark);
     }
