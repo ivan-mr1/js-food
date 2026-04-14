@@ -24,18 +24,20 @@ const timer = () => {
       return;
     }
 
-    const days = timer.querySelector('[data-timer-unit="days"]');
-    const hours = timer.querySelector('[data-timer-unit="hours"]');
-    const minutes = timer.querySelector('[data-timer-unit="minutes"]');
-    const seconds = timer.querySelector('[data-timer-unit="seconds"]');
+    const elements = {};
+
+    timer.querySelectorAll('[data-timer-unit]').forEach((el) => {
+      const unit = el.dataset.timerUnit;
+      elements[unit] = el;
+    });
 
     const updateClock = () => {
       const t = getTimeRemaining(endTime);
 
-      days.textContent = addZero(t.days);
-      hours.textContent = addZero(t.hours);
-      minutes.textContent = addZero(t.minutes);
-      seconds.textContent = addZero(t.seconds);
+      elements.days.textContent = addZero(t.days);
+      elements.hours.textContent = addZero(t.hours);
+      elements.minutes.textContent = addZero(t.minutes);
+      elements.seconds.textContent = addZero(t.seconds);
 
       if (t.total <= 0) {
         clearInterval(timerInterval);
@@ -43,7 +45,7 @@ const timer = () => {
     };
 
     const timerInterval = setInterval(updateClock, 1000);
-    updateClock(); // Запуск сразу
+    updateClock();
   };
 
   setClock(deadline);
