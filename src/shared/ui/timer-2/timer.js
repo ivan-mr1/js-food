@@ -1,9 +1,10 @@
 const timer = () => {
-  const deadline = '2026-05-15';
+  const date = new Date();
+  date.setDate(date.getDate() + 50);
+  const deadline = date.toISOString();
 
   const getTimeRemaining = (endTime) => {
-    const t = Date.parse(endTime) - Date.parse(new Date());
-    const total = t <= 0 ? 0 : t;
+    const total = Math.max(0, Date.parse(endTime) - Date.now());
 
     return {
       total,
@@ -14,38 +15,33 @@ const timer = () => {
     };
   };
 
-  // const addZero = (num) => (num >= 0 && num < 10 ? `0${num}` : num);
   const addZero = (num) => String(num).padStart(2, '0');
 
   const setClock = (endTime, selector = '[data-timer]') => {
-    const timer = document.querySelector(selector);
-
-    if (!timer) {
+    const timerElement = document.querySelector(selector);
+    if (!timerElement) {
       return;
     }
 
     const elements = {};
-
-    timer.querySelectorAll('[data-timer-unit]').forEach((el) => {
-      const unit = el.dataset.timerUnit;
-      elements[unit] = el;
+    timerElement.querySelectorAll('[data-timer-unit]').forEach((el) => {
+      elements[el.dataset.timerUnit] = el;
     });
 
     const updateClock = () => {
       const t = getTimeRemaining(endTime);
 
-      elements.days.textContent = addZero(t.days);
-      elements.hours.textContent = addZero(t.hours);
-      elements.minutes.textContent = addZero(t.minutes);
-      elements.seconds.textContent = addZero(t.seconds);
+      Object.entries(elements).forEach(([unit, el]) => {
+        el.textContent = addZero(t[unit]);
+      });
 
       if (t.total <= 0) {
         clearInterval(timerInterval);
       }
     };
 
-    const timerInterval = setInterval(updateClock, 1000);
     updateClock();
+    const timerInterval = setInterval(updateClock, 1000);
   };
 
   setClock(deadline);
