@@ -1,12 +1,17 @@
+const MS_IN_SECOND = 1000;
+const MS_IN_MINUTE = MS_IN_SECOND * 60;
+const MS_IN_HOUR = MS_IN_MINUTE * 60;
+const MS_IN_DAY = MS_IN_HOUR * 24;
+
 const getTimeRemaining = (endTime) => {
   const total = Math.max(0, Date.parse(endTime) - Date.now());
 
   return {
     total,
-    days: Math.floor(total / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((total / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((total / 1000 / 60) % 60),
-    seconds: Math.floor((total / 1000) % 60),
+    days: Math.floor(total / MS_IN_DAY),
+    hours: Math.floor((total / MS_IN_HOUR) % 24),
+    minutes: Math.floor((total / MS_IN_MINUTE) % 60),
+    seconds: Math.floor((total / MS_IN_SECOND) % 60),
   };
 };
 
