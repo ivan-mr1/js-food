@@ -1,3 +1,4 @@
+import { formatDate } from '@/shared/lib';
 import timer from '@/shared/ui/timer-2/timer';
 
 const promotion = () => {
@@ -6,6 +7,10 @@ const promotion = () => {
   const deadline = date.toISOString();
 
   timer(deadline);
+
+  const span = document.querySelector('[data-deadline]');
+
+  span.textContent = formatDate(deadline);
 };
 
 export default promotion;
