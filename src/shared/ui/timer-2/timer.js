@@ -1,8 +1,4 @@
 const timer = (endTime) => {
-  // const date = new Date();
-  // date.setDate(date.getDate() + 50);
-  // const deadline = date.toISOString();
-
   const getTimeRemaining = (endTime) => {
     const total = Math.max(0, Date.parse(endTime) - Date.now());
 

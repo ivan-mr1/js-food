@@ -1,20 +1,27 @@
-/**
- * Форматирует дату в формат DD.MM.YYYY
- * @param {Date|string|number} date
- * @param {string} separator
- * @returns {string}
- */
-export const formatDate = (date, separator = '.') => {
-  const d = new Date(date);
+export const formatDate = (input, options = {}) => {
+  const { separator = '.', format = 'DD.MM.YYYY' } = options;
 
-  if (isNaN(d.getTime())) {
-    console.error('formatDate: Error date —', date);
+  const d = new Date(input);
+  if (Number.isNaN(d.getTime())) {
     return '';
   }
 
-  const day = String(d.getDate()).padStart(2, '0');
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const year = d.getFullYear();
+  const map = {
+    DD: String(d.getDate()).padStart(2, '0'),
+    MM: String(d.getMonth() + 1).padStart(2, '0'),
+    YYYY: d.getFullYear(),
+  };
 
-  return [day, month, year].join(separator);
+  return format
+    .replace(/DD|MM|YYYY/g, (token) => map[token])
+    .replace(/\./g, separator);
 };
+
+// formatDate(date);
+// 05.06.2026
+
+// formatDate(date, { separator: '-' });
+// 05-06-2026
+
+// formatDate(date, { format: 'YYYY/MM/DD' });
+// 2026/06/05
