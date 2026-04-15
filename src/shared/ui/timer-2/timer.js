@@ -19,10 +19,14 @@ const formatValue = (num) => String(num).padStart(2, '0');
 
 const initTimerInstance = (rootElement, endTime) => {
   const unitElements = {};
-  const elements = rootElement.querySelectorAll('[data-timer-unit]');
+  const validUnits = ['days', 'hours', 'minutes', 'seconds'];
 
-  elements.forEach((el) => {
-    unitElements[el.dataset.timerUnit] = el;
+  rootElement.querySelectorAll('[data-timer-unit]').forEach((el) => {
+    const unit = el.dataset.timerUnit;
+
+    if (validUnits.includes(unit)) {
+      unitElements[unit] = el;
+    }
   });
 
   const update = () => {
@@ -44,9 +48,7 @@ const initTimerInstance = (rootElement, endTime) => {
     return null;
   }
 
-  let timerId;
-
-  timerId = setInterval(() => {
+  const timerId = setInterval(() => {
     const remaining = update();
 
     if (remaining <= 0) {
@@ -58,9 +60,9 @@ const initTimerInstance = (rootElement, endTime) => {
 };
 
 const timer = (endTime, selector = '[data-timer]') => {
-  const timerNodes = document.querySelectorAll(selector);
+  const timers = document.querySelectorAll(selector);
 
-  timerNodes.forEach((node) => initTimerInstance(node, endTime));
+  timers.forEach((el) => initTimerInstance(el, endTime));
 };
 
 export default timer;
