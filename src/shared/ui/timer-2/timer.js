@@ -1,46 +1,61 @@
-const timer = (endTime) => {
-  const getTimeRemaining = (endTime) => {
-    const total = Math.max(0, Date.parse(endTime) - Date.now());
+const getTimeRemaining = (endTime) => {
+  const total = Math.max(0, Date.parse(endTime) - Date.now());
 
-    return {
-      total,
-      days: Math.floor(total / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((total / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((total / 1000 / 60) % 60),
-      seconds: Math.floor((total / 1000) % 60),
-    };
+  return {
+    total,
+    days: Math.floor(total / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((total / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((total / 1000 / 60) % 60),
+    seconds: Math.floor((total / 1000) % 60),
   };
+};
 
-  const addZero = (num) => String(num).padStart(2, '0');
+const formatValue = (num) => String(num).padStart(2, '0');
 
-  const setClock = (endTime, selector = '[data-timer]') => {
-    const timerElement = document.querySelector(selector);
-    if (!timerElement) {
-      return;
-    }
+const initTimerInstance = (rootElement, endTime) => {
+  const unitElements = {};
+  const elements = rootElement.querySelectorAll('[data-timer-unit]');
 
-    const elements = {};
-    timerElement.querySelectorAll('[data-timer-unit]').forEach((el) => {
-      elements[el.dataset.timerUnit] = el;
+  elements.forEach((el) => {
+    unitElements[el.dataset.timerUnit] = el;
+  });
+
+  const update = () => {
+    const time = getTimeRemaining(endTime);
+
+    Object.entries(unitElements).forEach(([unit, el]) => {
+      const formatted = formatValue(time[unit]);
+
+      if (el.textContent !== formatted) {
+        el.textContent = formatted;
+      }
     });
 
-    const updateClock = () => {
-      const t = getTimeRemaining(endTime);
-
-      Object.entries(elements).forEach(([unit, el]) => {
-        el.textContent = addZero(t[unit]);
-      });
-
-      if (t.total <= 0) {
-        clearInterval(timerInterval);
-      }
-    };
-
-    updateClock();
-    const timerInterval = setInterval(updateClock, 1000);
+    return time.total;
   };
 
-  setClock(endTime);
+  const total = update();
+  if (total <= 0) {
+    return null;
+  }
+
+  let timerId;
+
+  timerId = setInterval(() => {
+    const remaining = update();
+
+    if (remaining <= 0) {
+      clearInterval(timerId);
+    }
+  }, 1000);
+
+  return timerId;
+};
+
+const timer = (endTime, selector = '[data-timer]') => {
+  const timerNodes = document.querySelectorAll(selector);
+
+  timerNodes.forEach((node) => initTimerInstance(node, endTime));
 };
 
 export default timer;
