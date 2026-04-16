@@ -1,0 +1,60 @@
+@use '@helpers' as *;
+
+.slider {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+
+  &__counter {
+    display: flex;
+    align-items: center;
+    max-width: 180px;
+    font-size: 24px;
+    color: var(--color-gray);
+  }
+
+  &__prev,
+  &__next {
+    padding-block: 20px;
+
+    @include hover {
+      svg {
+        color: var(--accent-color);
+      }
+    }
+
+    svg {
+      display: block;
+      color: var(--color-dark);
+      transition-duration: var(--transition-duration);
+    }
+  }
+
+  &__prev {
+    padding-right: 10px;
+  }
+
+  &__next {
+    padding-left: 10px;
+  }
+
+  &__current {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--color-dark);
+  }
+
+  &__wrapper {
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  &__slide {
+    max-width: 650px;
+    max-height: 390px;
+
+    img {
+      aspect-ratio: 650 / 390;
+    }
+  }
+}

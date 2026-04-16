@@ -1,5 +1,7 @@
+import { sliderFood } from '@/shared/ui/sliders/slider-food/slider-food';
+
 const offer = () => {
-  console.log('1');
+  sliderFood();
 };
 
 export default offer;
