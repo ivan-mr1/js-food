@@ -1,10 +1,10 @@
 <div data-slider class="slider">
-  <div data-slider-counter class="slider__counter">
+  <div data-slider-counter class="slider__counter" aria-live="polite">
     <button
       data-slider-btn-prev
       class="slider__prev"
-      title="prev button"
-      aria-label="prev button"
+      title="Previous slide"
+      aria-label="Previous slide"
     >
       <svg
         width="38"
@@ -28,15 +28,15 @@
       </svg>
     </button>
 
-    <span data-slider-counter-current class="slider__current">03</span>
+    <span data-slider-counter-current class="slider__current"></span>
     /
-    <span data-slider-counter-total class="slider__total">04</span>
+    <span data-slider-counter-total class="slider__total"></span>
 
     <button
       data-slider-btn-next
       class="slider__next"
-      title="next button"
-      aria-label="next button"
+      title="next slide"
+      aria-label="next slide"
     >
       <svg
         width="38"
@@ -54,77 +54,79 @@
     </button>
   </div>
   <div data-slider-wrapper class="slider__wrapper">
-    <div data-slider-slide class="slider__slide">
-      <img
-        src="shared/assets/img/slider/pepper.webp"
-        alt="pepper"
-        width="650"
-        height="390"
-        loading="lazy"
-      />
-    </div>
-    <div data-slider-slide class="slider__slide">
-      <img
-        src="shared/assets/img/slider/food-12.webp"
-        alt="food"
-        width="650"
-        height="390"
-        loading="lazy"
-      />
-    </div>
-    <div data-slider-slide class="slider__slide">
-      <img
-        src="shared/assets/img/slider/olive-oil.webp"
-        alt="oil"
-        width="650"
-        height="390"
-        loading="lazy"
-      />
-    </div>
-    <div data-slider-slide class="slider__slide">
-      <img
-        src="shared/assets/img/slider/paprika.webp"
-        alt="paprika"
-        width="650"
-        height="390"
-        loading="lazy"
-      />
-    </div>
-    <div data-slider-slide class="slider__slide">
-      <img
-        src="shared/assets/img/slider/slider1.webp"
-        alt="paprika"
-        width="650"
-        height="390"
-        loading="lazy"
-      />
-    </div>
-    <div data-slider-slide class="slider__slide">
-      <img
-        src="shared/assets/img/slider/slider2.webp"
-        alt="paprika"
-        width="650"
-        height="390"
-        loading="lazy"
-      />
-    </div>
-    <div data-slider-slide class="slider__slide">
-      <img
-        src="shared/assets/img/slider/slider3.webp"
-        alt="paprika"
-        width="650"
-        height="390"
-        loading="lazy"
-      />
-    </div>
-    <div data-slider-slide class="slider__slide">
-      <img
-        src="shared/assets/img/slider/slider4.webp"
-        alt="paprika"
-        width="650"
-        height="390"
-        loading="lazy"
-      />
-    </div>
+    <ul data-slider-track class="slider__track">
+      <li data-slider-slide class="slider__slide">
+        <img
+          src="shared/assets/img/slider/pepper.webp"
+          alt="pepper"
+          width="650"
+          height="390"
+          loading="lazy"
+        />
+      </li>
+      <li data-slider-slide class="slider__slide">
+        <img
+          src="shared/assets/img/slider/food-12.webp"
+          alt="food"
+          width="650"
+          height="390"
+          loading="lazy"
+        />
+      </li>
+      <li data-slider-slide class="slider__slide">
+        <img
+          src="shared/assets/img/slider/olive-oil.webp"
+          alt="oil"
+          width="650"
+          height="390"
+          loading="lazy"
+        />
+      </li>
+      <li data-slider-slide class="slider__slide">
+        <img
+          src="shared/assets/img/slider/paprika.webp"
+          alt="paprika"
+          width="650"
+          height="390"
+          loading="lazy"
+        />
+      </li>
+      <li data-slider-slide class="slider__slide">
+        <img
+          src="shared/assets/img/slider/slider1.webp"
+          alt="paprika1"
+          width="650"
+          height="390"
+          loading="lazy"
+        />
+      </li>
+      <li data-slider-slide class="slider__slide">
+        <img
+          src="shared/assets/img/slider/slider2.webp"
+          alt="paprika2"
+          width="650"
+          height="390"
+          loading="lazy"
+        />
+      </li>
+      <li data-slider-slide class="slider__slide">
+        <img
+          src="shared/assets/img/slider/slider3.webp"
+          alt="paprika3"
+          width="650"
+          height="390"
+          loading="lazy"
+        />
+      </li>
+      <li data-slider-slide class="slider__slide">
+        <img
+          src="shared/assets/img/slider/slider4.webp"
+          alt="paprika4"
+          width="650"
+          height="390"
+          loading="lazy"
+        />
+      </li>
+    </ul>
   </div>
 </div>

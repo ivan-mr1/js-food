@@ -1,44 +1,45 @@
 import { formatValue } from '@/shared/lib';
 
+const initSlider = (rootContainer) => {
+  const prev = rootContainer.querySelector('[data-slider-btn-prev]');
+  const next = rootContainer.querySelector('[data-slider-btn-next]');
+  const total = rootContainer.querySelector('[data-slider-counter-total]');
+  const current = rootContainer.querySelector('[data-slider-counter-current]');
+  const track = rootContainer.querySelector('[data-slider-track]');
+  const slides = rootContainer.querySelectorAll('[data-slider-slide]');
+
+  if (!track || !slides.length || !prev || !next) {
+    return;
+  }
+
+  let index = 0;
+
+  const updateSlider = () => {
+    track.style.transform = `translateX(-${index * 100}%)`;
+    if (current) {
+      current.textContent = formatValue(index + 1);
+    }
+  };
+
+  const goToSlide = (newIndex) => {
+    index = (newIndex + slides.length) % slides.length;
+    updateSlider();
+  };
+
+  if (total) {
+    total.textContent = formatValue(slides.length);
+  }
+
+  prev.addEventListener('click', () => goToSlide(index - 1));
+  next.addEventListener('click', () => goToSlide(index + 1));
+
+  updateSlider();
+};
+
 const sliderFood = () => {
-  const slides = document.querySelectorAll('[data-slider-slide]');
-  const prevButton = document.querySelector('[data-slider-btn-prev]');
-  const nextButton = document.querySelector('[data-slider-btn-next]');
-  const total = document.querySelector('[data-slider-counter-total]');
-  const currentSlide = document.querySelector('[data-slider-counter-current]');
+  const sliders = document.querySelectorAll('[data-slider]');
 
-  let slideIndex = 1;
-
-  const showSlides = (n) => {
-    if (n > slides.length) {
-      slideIndex = 1;
-    }
-
-    if (n < 1) {
-      slideIndex = slides.length;
-    }
-
-    slides.forEach((slide) => slide.classList.add('is-none'));
-
-    slides[slideIndex - 1].classList.remove('is-none');
-
-    currentSlide.textContent = formatValue(slideIndex);
-  };
-
-  showSlides(slideIndex);
-
-  const plusSlides = (n) => {
-    showSlides((slideIndex += n));
-  };
-
-  prevButton.addEventListener('click', () => {
-    plusSlides(-1);
-  });
-  nextButton.addEventListener('click', () => {
-    plusSlides(1);
-  });
-
-  total.textContent = formatValue(slides.length);
+  sliders.forEach((slider) => initSlider(slider));
 };
 
 export { sliderFood };
