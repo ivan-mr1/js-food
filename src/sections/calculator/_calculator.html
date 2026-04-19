@@ -6,7 +6,7 @@
     <div data-calc class="calculating__wrapper">
       <h3 class="calculating__subtitle">Ваш пол</h3>
       <div data-calc-gender class="calculating__choose">
-        <button data-calc="female" class="calculating__choose-item is-active">
+        <button data-calc="female" class="calculating__choose-item">
           Женщина
         </button>
         <button data-calc="male" class="calculating__choose-item">
@@ -22,7 +22,8 @@
             id="height"
             placeholder=" "
             autocomplete="off"
-            required
+            type="number"
+            inputmode="numeric"
             data-calc-height
           />
         </div>
@@ -33,7 +34,8 @@
             id="weight"
             placeholder=" "
             autocomplete="off"
-            required
+            type="number"
+            inputmode="numeric"
             data-calc-weight
           />
         </div>
@@ -44,7 +46,8 @@
             id="age"
             placeholder=" "
             autocomplete="off"
-            required
+            type="number"
+            inputmode="numeric"
             data-calc-age
           />
         </div>
@@ -57,7 +60,7 @@
         <button data-ratio="1.2" class="calculating__choose-item">
           Низкая активность
         </button>
-        <button data-ratio="1.375" class="calculating__choose-item is-active">
+        <button data-ratio="1.375" class="calculating__choose-item">
           Невысокая активность
         </button>
         <button data-ratio="1.55" class="calculating__choose-item">

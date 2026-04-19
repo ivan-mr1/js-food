@@ -2,11 +2,23 @@ const calculator = () => {
   const result = document.querySelector('[data-calc-result]');
   const resultEmptyMessage = '____';
 
-  let sex = 'female',
-    height,
-    weight,
-    age,
-    ratio = 1.375;
+  let sex = localStorage.getItem('sex') || 'female';
+  let ratio = localStorage.getItem('ratio') || 1.375;
+  let height, weight, age;
+
+  const initLocalSettings = (selector, activeClass = 'is-active') => {
+    const elements = document.querySelectorAll(`${selector} button`);
+
+    elements.forEach((btn) => {
+      btn.classList.remove(activeClass);
+      if (btn.getAttribute('data-calc') === sex) {
+        btn.classList.add(activeClass);
+      }
+      if (btn.getAttribute('data-ratio') === ratio) {
+        btn.classList.add(activeClass);
+      }
+    });
+  };
 
   const calcTotal = () => {
     if (!sex || !height || !weight || !age || !ratio) {
@@ -34,8 +46,10 @@ const calculator = () => {
 
       if (target.hasAttribute('data-ratio')) {
         ratio = Number(target.getAttribute('data-ratio'));
-      } else if (target.hasAttribute('data-calc')) {
+        localStorage.setItem('ratio', ratio);
+      } else {
         sex = target.getAttribute('data-calc');
+        localStorage.setItem('sex', sex);
       }
 
       parent.querySelector(`.${activeClass}`)?.classList.remove(activeClass);
@@ -49,11 +63,7 @@ const calculator = () => {
     const input = document.querySelector(selector);
 
     input.addEventListener('input', () => {
-      if (input.value.match(/\D/g)) {
-        input.classList.add('error');
-      }
-
-      const val = Number(input.value);
+      const val = +input.value;
 
       if (input.hasAttribute('data-calc-height')) {
         height = val;
@@ -66,6 +76,9 @@ const calculator = () => {
       calcTotal();
     });
   };
+
+  initLocalSettings('[data-calc-gender]');
+  initLocalSettings('[data-calc-activity]');
 
   getButtonInformation('[data-calc-gender]');
   getButtonInformation('[data-calc-activity]');
