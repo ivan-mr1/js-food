@@ -45,6 +45,10 @@
       outline: none;
     }
 
+    &.error {
+      border: 1px solid red;
+    }
+
     &[type='search'] {
       &:placeholder-shown {
         //  когда плейсхолдер на инпуте должен отображаться, отображаем иконку

@@ -33,7 +33,7 @@ const calculator = () => {
       }
 
       if (target.hasAttribute('data-ratio')) {
-        ratio = +target.getAttribute('data-ratio');
+        ratio = Number(target.getAttribute('data-ratio'));
       } else if (target.hasAttribute('data-calc')) {
         sex = target.getAttribute('data-calc');
       }
@@ -49,7 +49,11 @@ const calculator = () => {
     const input = document.querySelector(selector);
 
     input.addEventListener('input', () => {
-      const val = +input.value;
+      if (input.value.match(/\D/g)) {
+        input.classList.add('error');
+      }
+
+      const val = Number(input.value);
 
       if (input.hasAttribute('data-calc-height')) {
         height = val;
