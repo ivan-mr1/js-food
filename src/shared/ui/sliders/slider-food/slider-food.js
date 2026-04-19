@@ -21,20 +21,26 @@ const initSlider = (rootContainer) => {
   let bullets = [];
 
   if (pagination) {
-    pagination.innerHTML = '';
+    const fragment = document.createDocumentFragment();
 
-    for (let i = 0; i < slides.length; i++) {
+    slides.forEach((_, i) => {
       const bullet = document.createElement('button');
-
       bullet.className = 'slider__bullet';
       bullet.type = 'button';
+      bullet.dataset.index = i;
       bullet.setAttribute('aria-label', `Go to slide ${i + 1}`);
-
-      bullet.addEventListener('click', () => goToSlide(i));
-
-      pagination.appendChild(bullet);
+      fragment.appendChild(bullet);
       bullets.push(bullet);
-    }
+    });
+
+    pagination.appendChild(fragment);
+
+    pagination.addEventListener('click', (e) => {
+      const bullet = e.target.closest('.slider__bullet');
+      if (bullet) {
+        goToSlide(Number(bullet.dataset.index));
+      }
+    });
   }
 
   const updateSlider = () => {
