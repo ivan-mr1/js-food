@@ -58,6 +58,8 @@
     display: flex;
     transition: transform var(--transition-duration) ease-in-out;
     will-change: transform;
+    user-select: none;
+    -webkit-user-drag: none;
   }
 
   &__slide {
