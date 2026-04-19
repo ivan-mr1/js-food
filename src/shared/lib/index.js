@@ -12,4 +12,4 @@ export { default as BaseComponent } from './base-component/BaseComponent';
 export { pxToRem, MatchMedia } from './match-media/MatchMedia';
 export { locales } from './locates/locales';
 export { DateUpdater } from './date/DateUpdater';
-export { formatValue } from './number/formatValue';
+export { addLeadingZero } from './number/addLeadingZero';
