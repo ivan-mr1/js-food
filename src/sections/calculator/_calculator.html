@@ -3,15 +3,18 @@
     <h2 class="title calculating__title" id="calculating__title">
       Рассчитаем вашу потребность в калориях?
     </h2>
-    <div class="calculating__wrapper">
+    <div data-calc class="calculating__wrapper">
       <h3 class="calculating__subtitle">Ваш пол</h3>
-      <div class="calculating__choose" id="gender">
+      <div data-calc-gender class="calculating__choose" id="gender">
         <button
-          class="calculating__choose-item calculating__choose-item--active"
+          data-calc="female"
+          class="calculating__choose-item is-active"
         >
           Женщина
         </button>
-        <button class="calculating__choose-item">Мужчина</button>
+        <button data-calc="male" class="calculating__choose-item">
+          Мужчина
+        </button>
       </div>
       <h3 class="calculating__subtitle">Ваша конституция</h3>
       <div class="calculating__choose calculating__choose--medium">
@@ -23,6 +26,7 @@
             placeholder=" "
             autocomplete="off"
             required
+            data-calc-height
           />
         </div>
         <div class="field calculating__choose-item">
@@ -33,6 +37,7 @@
             placeholder=" "
             autocomplete="off"
             required
+            data-calc-weight
           />
         </div>
         <div class="field calculating__choose-item">
@@ -43,31 +48,46 @@
             placeholder=" "
             autocomplete="off"
             required
+            data-calc-age
           />
         </div>
       </div>
       <h3 class="calculating__subtitle">Выберите вашу физическая активность</h3>
-      <div class="calculating__choose calculating__choose--big">
-        <button id="low" class="calculating__choose-item">
+      <div
+        data-calc-activity
+        class="calculating__choose calculating__choose--big"
+      >
+        <button id="low" data-ratio="1.2" class="calculating__choose-item">
           Низкая активность
         </button>
         <button
+          data-ratio="1.375"
           id="small"
-          class="calculating__choose-item calculating__choose-item--active"
+          class="calculating__choose-item is-active"
         >
           Невысокая активность
         </button>
-        <button id="medium" class="calculating__choose-item">
+        <button
+          data-ratio="1.55"
+          id="medium"
+          class="calculating__choose-item"
+        >
           Умеренная активность
         </button>
-        <button id="high" class="calculating__choose-item">
+        <button
+          data-ratio="1.725"
+          id="high"
+          class="calculating__choose-item"
+        >
           Высокая активность
         </button>
       </div>
       <div class="calculating__divider"></div>
       <div class="calculating__total">
         <div class="calculating__subtitle">Ваша суточная норма калорий:</div>
-        <div class="calculating__result"><span>2700</span> ккал</div>
+        <div class="calculating__result">
+          <span data-calc-result>2700</span> ккал
+        </div>
       </div>
     </div>
   </div>

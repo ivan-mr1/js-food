@@ -88,7 +88,7 @@
       transform: scale(0.97);
     }
 
-    &--active {
+    &.is-active {
       color: var(--color-white);
       background-color: #54ed39;
     }

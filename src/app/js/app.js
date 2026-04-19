@@ -6,6 +6,7 @@ import ScrollUpButton from '@/shared/ui/scrollUpButton/ScrollUpButton';
 import heroTabs from '@/sections/hero/hero';
 import offer from '@/sections/offer/offer';
 import promotion from '@/sections/promotion/promotion';
+import { calculator } from '@/sections/calculator/calculator';
 
 window.addEventListener('DOMContentLoaded', () => {
   pageNavigation();
@@ -13,5 +14,6 @@ window.addEventListener('DOMContentLoaded', () => {
   new ScrollUpButton();
   heroTabs();
   offer();
+  calculator();
   promotion();
 });
