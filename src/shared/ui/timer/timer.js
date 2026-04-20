@@ -1,4 +1,4 @@
-import { addLeadingZero } from '@/shared/lib';
+import { addLeadingZero, getDeclension, parseDate } from '@/shared/lib';
 import { MS, DEFAULT_LANG } from './constans';
 import { LABELS } from './locates';
 
@@ -6,26 +6,6 @@ const setText = (el, value) => {
   if (el && el.textContent !== value) {
     el.textContent = value;
   }
-};
-
-const getDeclension = (number, titles) => {
-  const cases = [2, 0, 1, 1, 1, 2];
-  return titles[
-    number % 100 > 4 && number % 100 < 20 ? 2 : cases[Math.min(number % 10, 5)]
-  ];
-};
-
-const getTargetDate = (to) => {
-  if (to instanceof Date) {
-    return to;
-  }
-  if (typeof to === 'string') {
-    return new Date(to);
-  }
-  if (typeof to === 'number') {
-    return new Date(Date.now() + to * 1000);
-  }
-  throw new Error('Timer: invalid target date');
 };
 
 const getTimeRemaining = (targetDate) => {
@@ -102,7 +82,7 @@ const createTimerInstance = (root, to, options = {}) => {
 
   let targetDate;
   try {
-    targetDate = getTargetDate(to);
+    targetDate = parseDate(to);
   } catch (e) {
     console.error(e.message);
     return null;

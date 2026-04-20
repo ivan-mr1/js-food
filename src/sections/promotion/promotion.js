@@ -1,5 +1,5 @@
 import { formatDate } from '@/shared/lib';
-import timer from '@/shared/ui/timer-2/timer';
+import timer from '@/shared/ui/timer/timer';
 
 const promotion = () => {
   const date = new Date();

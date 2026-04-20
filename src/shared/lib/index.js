@@ -13,3 +13,5 @@ export { pxToRem, MatchMedia } from './match-media/MatchMedia';
 export { locales } from './locates/locales';
 export { DateUpdater } from './date/DateUpdater';
 export { addLeadingZero } from './number/addLeadingZero';
+export { getDeclension } from './get-declension/getDeclension';
+export { parseDate } from './date/parseDate';
