@@ -1,293 +1,178 @@
-import { getBodyLockStatus, bodyLock, bodyUnlock } from '@/shared/lib';
+import { bodyLock, bodyUnlock } from '@/shared/lib';
 
-import PopupYoutube from './PopupYoutube';
+const SELECTORS = {
+  popup: '[data-popup]',
+  link: '[data-popup-link]',
+  close: '[data-popup-close]',
+};
 
-export default class Popup {
-  selectors = {
-    root: '[data-popup]',
-    openButton: '[data-popup-link]',
-    closeButton: '[data-popup-close]',
-    content: '[data-popup-body]',
-  };
+const FOCUSABLE = [
+  'a[href]',
+  'input:not([disabled])',
+  'button:not([disabled])',
+  'select',
+  'textarea',
+  '[tabindex]:not([tabindex^="-"])',
+];
 
-  stateAttrs = {
-    popupActive: 'data-popup-active',
-    bodyActive: 'data-popup-open',
-  };
+// ==============================
+// DOM Utils
+// ==============================
 
-  stateClasses = {
-    isVisible: 'is-visible',
-  };
+const setPopupState = (el, isOpen) => {
+  if (!el) {
+    return;
+  }
+  el.classList.toggle('is-visible', isOpen);
+  el.setAttribute('aria-hidden', !isOpen);
+};
 
-  config = {
-    focusTrapDelay: 50, // мс - задержка для focus trap
-  };
+const setDocumentState = (isOpen) => {
+  document.documentElement.toggleAttribute('data-popup-open', isOpen);
+};
 
-  constructor(options = {}) {
-    const defaults = {
-      youtubeAttr: 'data-youtube-link',
-      autoplay: true,
-      enableYoutube: true,
-      focusCatch: true,
-      closeEsc: true,
-      bodyLock: true,
-      hash: {
-        use: true,
-        navigate: true,
-      },
-    };
+const getFocusable = (root) =>
+  Array.from(root.querySelectorAll(FOCUSABLE.join(',')));
 
-    this.options = {
-      ...defaults,
-      ...options,
-      hash: { ...defaults.hash, ...options?.hash },
-    };
-
-    // Опциональная интеграция с PopupYoutube
-    this.youtube = this.options.enableYoutube
-      ? new PopupYoutube({
-          youtubeAttr: this.options.youtubeAttr,
-          autoplay: this.options.autoplay,
-          standalone: false,
-        })
-      : null;
-
-    this.isOpen = false;
-    this.activePopup = null;
-    this.lastFocusEl = null;
-    this.youTubeCode = null;
-
-    this._focusable = [
-      'a[href]',
-      'input:not([disabled]):not([type="hidden"]):not([aria-hidden])',
-      'button:not([disabled]):not([aria-hidden])',
-      'select:not([disabled]):not([aria-hidden])',
-      'textarea:not([disabled]):not([aria-hidden])',
-      '[tabindex]:not([tabindex^="-"])',
-    ];
-
-    this.bindEvents();
-
-    if (this.options.hash.navigate && window.location.hash) {
-      this.openFromHash();
-    }
+const trapFocus = (e, nodes) => {
+  if (e.key !== 'Tab' || !nodes.length) {
+    return;
   }
 
-  bindEvents = () => {
-    document.addEventListener('click', this.handleClick);
-    document.addEventListener('keydown', this.handleKey);
+  const first = nodes[0];
+  const last = nodes[nodes.length - 1];
 
-    if (this.options.hash.navigate) {
-      window.addEventListener('hashchange', this.handleHashChange);
-    }
+  if (e.shiftKey && document.activeElement === first) {
+    last.focus();
+    e.preventDefault();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    first.focus();
+    e.preventDefault();
+  }
+};
+
+// ==============================
+// Instance
+// ==============================
+
+const createPopupInstance = (options = {}) => {
+  const config = {
+    bodyLock: true,
+    closeEsc: true,
+    onOpen: () => {},
+    onClose: () => {},
+    ...options,
   };
 
-  handleClick = (e) => {
-    const openButton = e.target.closest(this.selectors.openButton);
-    const closeButton = e.target.closest(this.selectors.closeButton);
+  let active = null;
+  let lastFocus = null;
+  let focusableCache = [];
 
-    if (openButton) {
-      e.preventDefault();
-
-      this.youTubeCode =
-        this.youtube?.extractCodeFromElement(openButton) || null;
-      this.lastFocusEl = openButton;
-
-      const popupId = openButton.getAttribute('data-popup-link');
-      this.open(popupId);
+  const close = ({ skipUnlock = false } = {}) => {
+    if (!active) {
       return;
     }
 
-    const isCloseButton = !!closeButton;
-    const isOutsideClick =
-      this.isOpen && !e.target.closest(this.selectors.content);
+    setPopupState(active, false);
 
-    if (isCloseButton || isOutsideClick) {
-      e.preventDefault();
-      this.close();
-    }
-  };
-
-  handleKey = (e) => {
-    if (!this.isOpen) {
-      return;
-    }
-
-    if (this.options.closeEsc && e.key === 'Escape') {
-      e.preventDefault();
-      this.close();
-    } else if (this.options.focusCatch && e.key === 'Tab') {
-      this.focusCatch(e);
-    }
-  };
-
-  handleHashChange = () => {
-    if (window.location.hash) {
-      this.openFromHash();
-    } else {
-      this.close();
-    }
-  };
-
-  /**
-   * Открывает попап по селектору
-   * @param {string} selector - ID попапа
-   */
-  open = (selector) => {
-    if (!getBodyLockStatus()) {
-      return;
-    }
-
-    const popup = document.querySelector(`[data-popup="${selector}"]`);
-
-    if (!popup) {
-      console.warn(`Popup: Попап с селектором "${selector}" не найден`);
-      return;
-    }
-
-    if (this.activePopup && this.activePopup !== popup) {
-      this.close(this.activePopup);
-    }
-
-    this.activePopup = popup;
-    this.isOpen = true;
-
-    // Настройка YouTube если интеграция включена
-    if (this.youtube) {
-      const code =
-        this.youTubeCode || this.youtube.extractCodeFromElement(popup);
-      if (code) {
-        this.youtube.setup(popup, code);
+    if (!skipUnlock) {
+      setDocumentState(false);
+      if (config.bodyLock) {
+        bodyUnlock();
       }
     }
 
-    if (this.options.hash.use) {
-      this.updateHash(selector);
+    config.onClose(active);
+
+    const prev = lastFocus;
+
+    active = null;
+    lastFocus = null;
+    focusableCache = [];
+
+    if (!skipUnlock) {
+      prev?.focus();
+    }
+  };
+
+  const open = (id, opener = null) => {
+    // ИСПРАВЛЕНО: Правильный синтаксис селектора атрибута
+    const el = document.querySelector(`[data-popup="${id}"]`);
+    if (!el) {
+      return;
     }
 
-    popup.setAttribute(this.stateAttrs.popupActive, '');
-    popup.classList.add(this.stateClasses.isVisible);
-    popup.setAttribute('aria-hidden', 'false');
-    document.documentElement.setAttribute(this.stateAttrs.bodyActive, '');
+    if (active) {
+      close({ skipUnlock: true });
+    }
 
-    if (this.options.bodyLock) {
+    active = el;
+    lastFocus = opener || document.activeElement;
+    focusableCache = getFocusable(active);
+
+    setPopupState(active, true);
+    setDocumentState(true);
+
+    if (config.bodyLock) {
       bodyLock();
     }
 
-    setTimeout(() => this.focusTrap(), this.config.focusTrapDelay);
+    config.onOpen(active, opener);
+
+    requestAnimationFrame(() => focusableCache[0]?.focus());
   };
 
-  /**
-   * Закрывает активный попап
-   * @param {HTMLElement} target - Элемент попапа для закрытия
-   */
-  close = (target = this.activePopup) => {
-    if (!target || !this.isOpen) {
+  const handleKeyDown = (e) => {
+    if (!active) {
       return;
     }
 
-    target.removeAttribute(this.stateAttrs.popupActive);
-    target.classList.remove(this.stateClasses.isVisible);
-    target.setAttribute('aria-hidden', 'true');
-
-    this.isOpen = false;
-    this.activePopup = null;
-
-    // Очистка YouTube если интеграция включена
-    if (this.youtube) {
-      this.youtube.clear(target);
-    }
-
-    document.documentElement.removeAttribute(this.stateAttrs.bodyActive);
-    if (this.options.bodyLock) {
-      bodyUnlock();
-    }
-
-    if (this.options.hash.use) {
-      this.clearHash();
-    }
-
-    this.lastFocusEl?.focus();
-  };
-
-  /**
-   * Ловушка фокуса - удерживает фокус внутри попапа при нажатии Tab
-   * @private
-   */
-  focusCatch = (e) => {
-    const focusable = this.activePopup?.querySelectorAll(this._focusable);
-    if (!focusable?.length) {
+    if (e.key === 'Escape' && config.closeEsc) {
+      close();
       return;
     }
 
-    const arr = Array.from(focusable);
-    const idx = arr.indexOf(document.activeElement);
+    trapFocus(e, focusableCache);
+  };
 
-    if (e.shiftKey && idx === 0) {
-      arr[arr.length - 1].focus();
+  return { open, close, handleKeyDown };
+};
+
+// ==============================
+// Public API
+// ==============================
+
+const popup = (options = {}) => {
+  const instance = createPopupInstance(options);
+
+  const handleClick = (e) => {
+    const link = e.target.closest(SELECTORS.link);
+    const closeBtn = e.target.closest(SELECTORS.close);
+    const overlay = e.target.closest(SELECTORS.popup);
+
+    if (link) {
       e.preventDefault();
-    } else if (!e.shiftKey && idx === arr.length - 1) {
-      arr[0].focus();
+      const id = link.dataset.popupLink || link.dataset.popup;
+      instance.open(id, link);
+    }
+
+    if (closeBtn || (overlay && e.target === overlay)) {
       e.preventDefault();
+      instance.close();
     }
   };
 
-  /**
-   * Устанавливает фокус на первый элемент в попапе
-   * @private
-   */
-  focusTrap = () => {
-    const focusable = this.activePopup?.querySelectorAll(this._focusable);
-    if (!focusable?.length) {
-      return;
-    }
+  document.addEventListener('click', handleClick);
+  document.addEventListener('keydown', instance.handleKeyDown);
 
-    (this.isOpen ? focusable[0] : this.lastFocusEl)?.focus();
+  return {
+    open: instance.open,
+    close: instance.close,
+    destroy: () => {
+      document.removeEventListener('click', handleClick);
+      document.removeEventListener('keydown', instance.handleKeyDown);
+    },
   };
+};
 
-  /**
-   * Обновляет hash в URL
-   * @private
-   */
-  updateHash = (selector) => {
-    history.replaceState(null, '', `#${selector}`);
-  };
-
-  /**
-   * Очищает hash из URL
-   * @private
-   */
-  clearHash = () => {
-    history.replaceState(null, '', window.location.pathname);
-  };
-
-  /**
-   * Открывает попап из hash в URL
-   * @private
-   */
-  openFromHash = () => {
-    const hash = window.location.hash.replace('#', '');
-    if (!hash) {
-      return;
-    }
-
-    const btn = document.querySelector(`[data-popup-link="${hash}"]`);
-
-    // Извлекаем YouTube код если интеграция включена
-    this.youTubeCode = this.youtube?.extractCodeFromElement(btn) || null;
-    this.open(hash);
-  };
-
-  destroy = () => {
-    document.removeEventListener('click', this.handleClick);
-    document.removeEventListener('keydown', this.handleKey);
-
-    if (this.options.hash.navigate) {
-      window.removeEventListener('hashchange', this.handleHashChange);
-    }
-
-    if (this.isOpen) {
-      this.close();
-    }
-  };
-}
+export default popup;

@@ -42,3 +42,19 @@
   </div>
 </div>
 ```
+
+import popup from '@/shared/ui/popup/popup';
+import { createYoutubePlayer } from '@/shared/ui/popup/popupYoutube';
+
+const ytPlayer = createYoutubePlayer();
+
+popup({
+onOpen: (el, trigger) => {
+// Ищем код видео в приоритете: кнопка -> сам попап
+const code = trigger?.dataset.youtube || el.dataset.youtube;
+if (code) ytPlayer.setup(el, code);
+},
+onClose: (el) => {
+ytPlayer.clear(el);
+}
+});
