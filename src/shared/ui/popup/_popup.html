@@ -31,7 +31,33 @@
           />
         </svg>
       </button>
-      <div data-popup-content class="popup__content">123456789</div>
+      <div data-popup-content class="popup__content">
+        <form class="popup__form">
+          <div class="field popup__field">
+            <label class="field__label" for="name">Ваше имя</label>
+            <input
+              class="field__input"
+              id="name"
+              placeholder=" "
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="field popup__field">
+            <label class="field__label" for="phone">Ваш номер телефона</label>
+            <input
+              class="field__input"
+              id="phone"
+              placeholder=" "
+              autocomplete="off"
+              required
+            />
+          </div>
+          <button class="button button--orange popup__button">
+            Перезвонить мне
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
