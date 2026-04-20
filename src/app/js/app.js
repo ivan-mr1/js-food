@@ -7,6 +7,7 @@ import heroTabs from '@/sections/hero/hero';
 import offer from '@/sections/offer/offer';
 import promotion from '@/sections/promotion/promotion';
 import { calculator } from '@/sections/calculator/calculator';
+import Popup from '@/shared/ui/popup/popup';
 
 window.addEventListener('DOMContentLoaded', () => {
   pageNavigation();
@@ -16,4 +17,5 @@ window.addEventListener('DOMContentLoaded', () => {
   offer();
   calculator();
   promotion();
+  new Popup();
 });
